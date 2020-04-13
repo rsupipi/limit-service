@@ -36,3 +36,34 @@ public class limitConfiguringController {
 output:
 Run this and check in postman
 `01_limitService.PNG`
+
+## 5.3 Configuration properties
+
+***application.property***
+```properties
+#======= configure properties  ========
+limits-service-properties.minimum=99
+limits-service-properties.maximum=9999
+```
+
+***Configuration.java***
+```java
+@Component
+@ConfigurationProperties("limits-service-properties") // take this from
+@Getter
+@Setter
+public class Configuration {
+    private int minimum;
+    private int maximum;
+}
+```
+
+***application.property***
+```java
+    @GetMapping("/limits2")
+    public LimistConfiguration retriveLimitsFromConfigurations2(){
+        return new LimistConfiguration(configuration.getMaximum(), configuration.getMinimum());
+    }   
+```
+***application.property***
+`02_config_properties.PNG`
